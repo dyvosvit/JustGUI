@@ -1,0 +1,73 @@
+{% extends "base/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+  <div class="panel">
+      <div class="content-header no-mg-top">
+         <i class="fa fa-newspaper-o"></i>
+         <div class="content-header-title">GB Options</div>
+      </div>
+      <div class="row">
+
+                     <div class="col-md-8">
+                        <div class="content-box">
+                           <div class="content-box-header">
+                              <div class="box-title">GB Config</div>
+                              <div class="box-description">Paste your configuration here and it will be uploaded automatically to your server. Gunbot will start using your new configuration soon.<a href="https://atomize.github.io/Gunfigurator"> Generate Config.</a></div>
+                           </div>
+                           <div class="line-chart-wrapper">
+<form method="POST">
+{% csrf_token %}
+{{settings_form|crispy}}
+ <button type="submit" class="btn btn-default">Submit</button>
+
+</form>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="content-box">
+                           <div class="donut-chart-wrapper">
+                              <canvas width="120" height="120" id=""></canvas>
+                              <div class="donut-chart-label">
+                                 <div class="donut-chart-value">GB</div>
+                                 <div class="donut-chart-title">Actions</div><br>
+                                 <img src="https://cdn.iconscout.com/public/images/icon/free/png-512/apple-tv-technology-remote-navigation-keys-3cb7eb466afa754f-512x512.png" alt="120" height="87">
+                              </div>
+                           </div>
+                           <div class="donut-chart-legend">
+                              <div class="legend-list">
+                                 <div class="legend-bullet green"></div>
+                                 <div class="legend-title"><a href="">Start</a></div>
+                              </div>
+                              <div class="legend-list">
+                                 <div class="legend-bullet red"></div>
+                                 <div class="legend-title"><a href="">Stop</a></div>
+                              </div>
+
+                           </div>
+                           
+                           </div>
+</div>
+                     <div class="col-md-12">
+                        <div class="content-box">
+                           <div class="content-box-header">
+                              <div class="box-title">Do you need more functions?</div>
+                              <div class="box-description">Write me via Telegram with the function you want to add.<a href=""> @Uservzk80</a></div>
+                           </div>
+                        </div>
+                     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

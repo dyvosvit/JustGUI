@@ -1,0 +1,37 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+
+   <div class="panel">
+      <div class="content-header no-mg-top">
+         <i class="fa fa-newspaper-o"></i>
+         <div class="content-header-title">Login History</div>
+      </div>
+
+                  <div class="row">
+                     <div class="col-md-12">
+                        <div class="content-box">
+
+                           <div class="table-responsive">
+                              <table class="table table-striped table-bordered datatable">
+                                 <p><b>History Access (last)</b></p>
+                                 <thead>
+                                    <tr>
+                                       <th class="text-center">IP adress</th>
+                                       <th class="text-center">Login Date Session</th>
+
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                 {% for instance in ip_user %}
+                                    <tr>
+                                       <td class="text-center">{{instance.ip}}</td>
+                                       <td class="text-center">
+                                          <span class="badge badge-red">{{instance.timestamp}}</span>
+                                       </td>
+                                    </tr>
+                                 {% endfor %}
+                                 </tbody>
+                              </table>
+                        </div>
+ {% endblock %}
