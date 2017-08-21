@@ -6,7 +6,7 @@
 JustGUI ;)
 
 
-## Installation
+## Installation JustGUI
 
 All OS (Requeriment Python):
 
@@ -27,7 +27,7 @@ Demo example data
 
 ```sh
 username:justgui
-password:demojustgui
+password:justguidemo
 ```
 ![](https://image.prntscr.com/image/fcgFsQySQeWyLZcpH07yvg.png)
 
@@ -37,6 +37,25 @@ _For more examples and usage, please refer to the [Wiki](https://github.com/user
 
 Use the test data or create a new user, in order to interact with the api you should go to /admin and add the IP of your server to the API section, this will allow JustGUI to interact with your server.
 
+## Running API
+
+```sh
+wget https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz
+tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+```
+
+```sh
+wget https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz
+tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+```
+Edit justgui.go with your server IP
+
+```sh
+go build justgui.go
+./justgui.go
+```
 ## Release History
 
 * 1.1
