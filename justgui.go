@@ -33,7 +33,7 @@ func returnJustGUIDatas(w http.ResponseWriter, r *http.Request){
 
 
   // valide the ip address
-  if string(ip) == "IP" {
+  if string(ip) == "YOUR IP" {
 
     balance, err := ioutil.ReadFile("MODULES/balance") // just pass the file name
     if err != nil {
@@ -91,7 +91,7 @@ func config(w http.ResponseWriter, r *http.Request) {
 
     fmt.Println(ip)
   // valide the ip address
-  if string(ip) == "IP" {
+  if string(ip) == "YOUR IP" {
 
     fmt.Fprintf(w, "Welcome to JustGUI Config Service!")
     system("MODULES/download.py")
@@ -118,7 +118,7 @@ func shutdown(w http.ResponseWriter, r *http.Request) {
 
 
   // valide the ip address
-  if string(ip) == "IP" {
+  if string(ip) == "YOUR IP" {
 
     fmt.Fprintf(w, "Welcome to JustGUI Shutdown Service!")
     system("MODULES/shutdown")
@@ -145,7 +145,7 @@ func start(w http.ResponseWriter, r *http.Request) {
 
 
   // valide the ip address
-  if string(ip) == "IP" {
+  if string(ip) == "YOUR IP" {
 
     fmt.Fprintf(w, "Welcome to JustGUI Start Service!")
     system("MODULES/start")
@@ -173,7 +173,7 @@ func logs(w http.ResponseWriter, r *http.Request) {
 
 
   // valide the ip address
-  if string(ip) == "IP" {
+  if string(ip) == "YOUR IP" {
 
    logs, err := ioutil.ReadFile("/root/.pm2/logs/gunthy-linx64-out-0.log") // just pass the file name
     if err != nil {
@@ -206,7 +206,7 @@ func trades(w http.ResponseWriter, r *http.Request) {
 
 
   // valide the ip address
-  if string(ip) == "IP" {
+  if string(ip) == "YOUR IP" {
     
     trades, err := ioutil.ReadFile("MODULES/trades") // just pass the file name
     if err != nil {
@@ -239,7 +239,7 @@ func balance(w http.ResponseWriter, r *http.Request) {
 
 
   // valide the ip address
-  if string(ip) == "IP" {
+  if string(ip) == "YOUR IP" {
     
     balance, err := ioutil.ReadFile("MODULES/balance") // just pass the file name
     if err != nil {
@@ -272,7 +272,7 @@ func gain(w http.ResponseWriter, r *http.Request) {
 
 
   // valide the ip address
-  if string(ip) == "IP" {
+  if string(ip) == "YOUR IP" {
     
     gain, err := ioutil.ReadFile("MODULES/gains_client_gain") // just pass the file name
     if err != nil {
