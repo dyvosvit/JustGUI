@@ -98,6 +98,7 @@ while True:
 	        trades = colorit+' '.join(work_set[key])
 	        trades = trades[5:]
 		save_trades.write(trades + ("\n\n"))
+            save_trades.close()
 
 
 
