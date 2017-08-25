@@ -28,17 +28,16 @@ def gui(request):
 		get_user_ip(request)
 
 	ip_api = API.objects.all()
+
 	for ip in ip_api:
 		ip = ip.ip
 
-		api = urllib2.urlopen('http://%s:4523/all' % (ip)).read()
+		balance = urllib2.urlopen('http://%s:4523/balance' % (ip)).read()[:4]
+		print balance[:6]
+		user_gain = urllib2.urlopen('http://%s:4523/gain' % (ip)).read()[:8]
+		print user_gain[:6]
 
 	try:
-
-		balance = api[13:50]
-		print balance
-		user_gain = api[73:80]
-		print user_gain
 
 		time = datetime.datetime.now()
 		datos_usuario = gain.objects.get_or_create(user = username, balance = Decimal(balance[:7]), profit = Decimal(user_gain[:7]), timestamp =  time.strftime("%Y-%m-%d"))
@@ -80,18 +79,19 @@ def logs(request):
 
 
 	try:
-		api = urllib2.urlopen('http://%s:4523/all' % (ip)).read()
-		balance = api[13:69]
-		gain = api[73:80]
+		balance = urllib2.urlopen('http://%s:4523/balance' % (ip)).read()[:4]
+		print balance[:6]
+		user_gain = urllib2.urlopen('http://%s:4523/gain' % (ip)).read()[:8]
+		print user_gain[:6]
 
 		logs = urllib2.urlopen('http://%s:4523/logs' % (ip)).read()
 
 		
 	except Exception as e:
 		balance = 'No data'
-		gain = 'No data'
+		user_gain = 'No data'
 		logs = 'No data'
-	return render(request, 'gui/logs.html', {'logs':logs, 'balances':balance[:7], 'gain':gain[:7], 'username':username})
+	return render(request, 'gui/logs.html', {'logs':logs, 'balances':balance[:7], 'gain':user_gain[:7], 'username':username})
 
 def settings(request):
 
@@ -105,15 +105,16 @@ def settings(request):
 	for ip in ip_api:
 		ip = ip.ip
 	try:
-		api = urllib2.urlopen('http://%s:4523/all' % (ip)).read()
-		balance = api[13:69]
-		gain = api[73:80]
+		balance = urllib2.urlopen('http://%s:4523/balance' % (ip)).read()[:4]
+		print balance[:6]
+		user_gain = urllib2.urlopen('http://%s:4523/gain' % (ip)).read()[:8]
+		print user_gain[:6]
 
 		logs = urllib2.urlopen('http://%s:4523/logs' % (ip)).read()
 
 	except Exception as e:
 		balance = 'No data'
-		gain = 'No data'
+		user_gain = 'No data'
 
 	settings_form = SettingsForm(request.POST, request.FILES or None)
 
@@ -129,7 +130,7 @@ def settings(request):
 		except Exception as e:
 			print ('No se puede subir')
 
-	return render(request, 'gui/settings.html', {'balances':balance[:7], 'gain':gain[:7], 'username':username,'settings_form':settings_form,})
+	return render(request, 'gui/settings.html', {'balances':balance[:7], 'gain':user_gain[:7], 'username':username,'settings_form':settings_form,})
 
 def profit(request):
 
@@ -143,13 +144,14 @@ def profit(request):
 		ip = ip.ip
 	
 	try:
-		api = urllib2.urlopen('http://%s:4523/all' % (ip)).read()
-		balance = api[13:69]
-		gain_user = api[73:80]
+		balance = urllib2.urlopen('http://%s:4523/balance' % (ip)).read()[:4]
+		print balance[:6]
+		user_gain = urllib2.urlopen('http://%s:4523/gain' % (ip)).read()[:8]
+		print user_gain[:6]
 
 	except Exception as e:
 		balance = 'No data'
-		gain_user = 'No data'
+		user_gain = 'No data'
 
 	today = DT.date.today()
 	week_ago = today - DT.timedelta(days=7)
@@ -166,7 +168,7 @@ def profit(request):
 	for instance in gain_now:
 		gain_now = instance.profit
 
-	return render(request, 'gui/profit.html', {'balances':balance[:7], 'gain':gain_user[:7], 'gain_now':gain_now, 'gain_ago':gain_ago, 'username':username})
+	return render(request, 'gui/profit.html', {'balances':balance[:7], 'gain':user_gain[:7], 'gain_now':gain_now, 'gain_ago':gain_ago, 'username':username})
 
 
 def login_history(request):
@@ -180,9 +182,10 @@ def login_history(request):
 	for ip in ip_api:
 		ip = ip.ip
 	try:
-		api = urllib2.urlopen('http://%s:4523/all' % (ip)).read()
-		balance = api[13:69]
-		gain_user = api[73:80]
+		balance = urllib2.urlopen('http://%s:4523/balance' % (ip)).read()[:4]
+		print balance[:6]
+		user_gain = urllib2.urlopen('http://%s:4523/gain' % (ip)).read()[:8]
+		print user_gain[:6]
 
 	except Exception as e:
 		balance = 'No data'
@@ -204,9 +207,10 @@ def trades(request):
 		ip = ip.ip
 
 	try:
-		api = urllib2.urlopen('http://%s:4523/all' % (ip)).read()
-		balance = api[13:69]
-		gain_user = api[73:80]
+		balance = urllib2.urlopen('http://%s:4523/balance' % (ip)).read()[:4]
+		print balance[:6]
+		user_gain = urllib2.urlopen('http://%s:4523/gain' % (ip)).read()[:8]
+		print user_gain[:6]
 
 		trades = urllib2.urlopen('http://%s:4523/trades' % (ip)).read()
 
@@ -214,11 +218,11 @@ def trades(request):
 			trades = 'No trades has been performed'
 	except Exception as e:
 		balance = 'No data'
-		gain_user = 'No data'
+		user_gain = 'No data'
 		logs = 'No data'
 		trades = 'No data'
 
-	return render(request, 'gui/trades.html', {'balances':balance[:7], 'gain':gain_user[:7], 'trades':trades, 'username':username})
+	return render(request, 'gui/trades.html', {'balances':balance[:7], 'gain':user_gain[:7], 'trades':trades, 'username':username})
 
 
 def start_gb(request):
@@ -229,9 +233,10 @@ def start_gb(request):
 		username = request.user.username
 
 	try:
-		api = urllib2.urlopen('http://%s:4523/all' % (ip)).read()
-		balance = api[13:69]
-		gain_user = api[73:80]
+		balance = urllib2.urlopen('http://%s:4523/balance' % (ip)).read()[:4]
+		print balance[:6]
+		user_gain = urllib2.urlopen('http://%s:4523/gain' % (ip)).read()[:8]
+		print user_gain[:6]
 
 		start = urllib2.urlopen('http://%s:4523/start' % ip).read()
 		message = "GB has been started successfully. Good luck with the trading."
