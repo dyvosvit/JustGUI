@@ -17,30 +17,31 @@ while True:
 		
 		balanceBTC = 0
 		# free BTC's on balance
-	    balance = testapi.get_balance('BTC')
+		balance = Bittrex.trex.get_balance('BTC')
 		if balance['success'] == True:
 			# add code to handle BTC's on orders here ...
-            balanceBTC = float(balance['result']['Available'])
+			balanceBTC = float(balance['result']['Available'])
 		time.sleep(0.3)
 		
 		#coins we have on balance
-        resultBalances = testapi.get_balances()
-	    bittrexCoinz={}
-	    if resultBalances['success']==True:
+		resultBalances = Bittrex.trex.get_balances()
+		bittrexCoinz={}
+	    
+		if resultBalances['success']==True:
 	         for i in resultBalances['result']:
 	            if (i['Balance']!=0):
 	                bittrexCoinz[i['Currency']]=i        
-        time.sleep(0.3)
+ 			time.sleep(0.3)
         
         # prices to calc estimated BTC's for coinz we have
-        resultTicker = testapi.get_market_summaries()
-	    totalRevenues=0
-	    if resultTicker['success']==True:
-	        for i in resultTicker['result']:
-	            market,coin =  i['MarketName'].split('-')
-	            if (market=='BTC') and (coin in bittrexCoinz.keys()):
+		resultTicker = Bittrex.trex.get_market_summaries()
+		totalRevenues=0
+		if resultTicker['success']==True:
+	   		for i in resultTicker['result']:
+				market, coin =  i['MarketName'].split('-')
+	        	if (market=='BTC') and (coin in bittrexCoinz.keys()):
 	            	# calcs are made using lastprice
-	                totalRevenues += float(bittrexCoinz[coin]['Balance']*i['Last'])
+	  				totalRevenues += float(bittrexCoinz[coin]['Balance']*i['Last'])
 
 		# balance = BTC's + BTC's for coinz sold at lastprice
 		now_balance = Decimal(float(balanceBTC)+totalRevenues)
@@ -86,15 +87,15 @@ while True:
 
 	class last_trades():
 
-	    latestTrades = 30
+		latestTrades = 30
 		def f(a,n,s):
 			return (s+str(format(a, '.8f'))).rjust(n)
 			
-    	resultMarkets=testapi.get_order_history()
+    	resultMarkets=Bittrex.trex.get_order_history()
     	text_out={}
     	if resultMarkets['success']==True:
         	for i in resultMarkets['result'][:latestTrades]:
-            	date=i['TimeStamp'].replace('T',' ').split('.')[0]
+				date=i['TimeStamp'].replace('T',' ').split('.')[0]
             	text_out[date]=[i['Exchange'], date,
                                       i['OrderType'][6:],str(i['Quantity']),'of',i['Exchange'][4:],
                                       'at',last_trades.f(i['PricePerUnit'],0,''),'resulting',
